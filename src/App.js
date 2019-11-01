@@ -30,12 +30,12 @@ function App() {
       return [...prevTodos, { id: uuidv4(), name: name, complete: false }];
     });
     todoNameRef.current.value = null;
+  }
 
-    // console.log(...todos);
-    // setTodos([
-    //   ...todos,
-    //   { id: uuidv4(), name: todoNameRef.current.value, complete: false }
-    // ]);
+  function handleClear() {
+    const newTodos = [...todos];
+    const uncompleteTodos = newTodos.filter(todo => !todo.complete);
+    setTodos(uncompleteTodos);
   }
 
   return (
@@ -43,8 +43,8 @@ function App() {
       <TodoList todos={todos} handleCheckTodo={handleCheckTodo} />
       <input ref={todoNameRef} type="text"></input>
       <button onClick={handleAddTodo}>Add Todo</button>
-      <button>Clear Complete</button>
-      <p>0 left to do {todos.length}</p>
+      <button onClick={handleClear}>Clear Complete</button>
+      <p>{todos.filter(todo => !todo.complete).length} left to do</p>
     </>
   );
 }
